@@ -7,7 +7,7 @@ int main(int argc, char* argv[]) {
         std::cerr << "Error getting hostname" << std::endl;
         return 1;
     }
-    std::cout << "Newest hello world from " << hostname << std::endl;
+    std::cout << "Latest hello world from " << hostname << std::endl;
 
     return 0;
 }
