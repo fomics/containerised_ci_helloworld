@@ -6,21 +6,20 @@ stages:
   - test
 
 variables:
-  PERSIST_IMAGE_NAME: $CSCS_REGISTRY_PATH/helloworld:$CI_COMMIT_REF_NAME
+  PERSIST_IMAGE_NAME: $CSCS_REGISTRY_PATH/helloworld:$CI_COMMIT_SHORT_SHA
 
 build_job:
   stage: build
-  extends: .container-builder
+  extends: .container-builder-cscs-zen2
   variables:
     DOCKERFILE: ci/docker/Dockerfile.build
 
 test_job:
   stage: test
-  extends: .container-runner-daint
+  extends: .container-runner-daint-gpu
   image: $PERSIST_IMAGE_NAME
   script:
     - /opt/helloworld/bin/hello
   variables:
     SLURM_JOB_NUM_NODES: 2
-    SLURM_PARTITION: normal
     SLURM_NTASKS: 2
